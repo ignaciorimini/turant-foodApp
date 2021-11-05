@@ -4,20 +4,25 @@
   margin: auto;
 }
 
+.slider-comidas h3{
+  width: 300px;
+  text-align: center;
+}
+
 .cuadro-comidas{
   width: 300px;
-  background: red;
+  height: 175px;
+  background: #fdd2cf;
   border: 2px solid black;
   border-radius: 10px;
-
+  display:table-cell;
+ vertical-align:middle;
 }
 
 .cuadro-comidas img{
-  width: 200px;
-  height: 200px;
-  text-align: center;
   margin-left: 50px;
 }
+
 
 /* poppins-regular - latin */
 @font-face {
