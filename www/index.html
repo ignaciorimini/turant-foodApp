@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="lib/framework7/framework7-bundle.min.css">
     <!-- Path to icons -->
     <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="cssframework7-icons.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/app.css">
 </head>
@@ -53,94 +54,276 @@
                 </div>
             </div>
 
-            <!-- Toolbar -->
-            <div class="toolbar toolbar-bottom">
-                <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
-                </div>
-            </div>
-
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="index" class="page">
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <div class="block">
-                        <p>Page content goes here</p>
+
                         <div class="comidas">
-                            <h2>¿Qué deseas pedir?</h2>
+                            <h3>¿Qué deseas pedir?</h3>
                         </div>
 
-
-
-                        <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="4" class="swiper-container swiper-init demo-swiper">
+                        <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="15"
+                            data-slides-per-view="3" class="swiper-container swiper-init demo-swiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/hamburguesa.png">
-                                    </div> 
-                                    <h3>Hamburguesas</h3>
-                                </div>
-                                <div class="swiper-slide slider-comidas">
-                                    <div class="cuadro-comidas">
-                                        <img src="img/pizza.png" id="pizza">
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/hamburguesa.png">
+                                        </div>
+                                        <h3>Hamburguesas</h3>
                                     </div>
-                                    <h3>Pizzas</h3> 
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/sandwich.png">
-                                    </div> 
-                                    <h3>Sanguches</h3>
-                                </div>
-                                <div class="swiper-slide slider-comidas">
-                                    <div class="cuadro-comidas">
-                                        <img src="img/milanesa.png">
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/pizza.png" id="pizza">
+                                        </div>
+                                        <h3>Pizzas</h3>
+
                                     </div>
-                                    <h3>Milanesas</h3> 
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/hamburguesa.png">
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/sandwich.png">
+                                        </div>
+                                        <h3>Sanguches</h3>
                                     </div>
-                                    <h3>Parrilladas</h3> 
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/hamburguesa.png">
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/milanesa.png">
+                                        </div>
+                                        <h3>Milanesas</h3>
                                     </div>
-                                    <h3>Pastas</h3> 
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/empanadas.png">
-                                    </div> 
-                                    <h3>Empanadas</h3>
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/hamburguesa.png">
+                                        </div>
+                                        <h3>Parrilladas</h3>
+                                    </div>
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/cafe.png">
-                                    </div> 
-                                    <h3>Meriendas</h3>
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/hamburguesa.png">
+                                        </div>
+                                        <h3>Pastas</h3>
+                                    </div>
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/hamburguesa.png">
-                                    </div> 
-                                    <h3>Postres</h3>
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/empanadas.png">
+                                        </div>
+                                        <h3>Empanadas</h3>
+                                    </div>
+
                                 </div>
                                 <div class="swiper-slide slider-comidas">
                                     <div class="cuadro-comidas">
-                                        <img src="img/hamburguesa.png">
-                                    </div> 
-                                    <h3>Bebidas</h3>
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/cafe.png">
+                                        </div>
+                                        <h3>Meriendas</h3>
+                                    </div>
+
+                                </div>
+                                <div class="swiper-slide slider-comidas">
+                                    <div class="cuadro-comidas">
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/hamburguesa.png">
+                                        </div>
+                                        <h3>Postres</h3>
+                                    </div>
+
+                                </div>
+                                <div class="swiper-slide slider-comidas">
+                                    <div class="cuadro-comidas">
+                                        <div class="cuadro-img-comidas">
+                                            <img src="img/hamburguesa.png">
+                                        </div>
+                                        <h3>Bebidas</h3>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
 
+                        <div class="locales">
+                            <h3>Locales populares</h3>
+                        </div>
 
-
+                        <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
+                            data-slides-per-view="auto" data-centered-slides="true"
+                            class="swiper-container swiper-init demo-swiper demo-swiper-auto">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="cuadro-locales">
+                                        <div class="cuadro-img-locales">
+                                            <img src="img/combo-hamburguesa.jpg">
+                                        </div>
+                                        <div class="campo-locales">
+                                            <img src="img/logo-mcdonalds.png">
+                                            <div class="texto-locales">
+                                                <h4 id="local-nombre">Mc Donalds - Terminal</h4>
+                                                <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                                                    Mesas disponibles</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tendencias">
+                            <h3>Tendencias</h3>
+                        </div>
                         <div class="block-title">Login</div>
                         <div class="block block-strong">
                             <div class="list inline-labels no-hairlines-md">

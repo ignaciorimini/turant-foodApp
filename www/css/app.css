@@ -1,28 +1,81 @@
 /* Your app custom styles here */
-.view-main{
-  width: 80%;
-  margin: auto;
-}
-
-.slider-comidas h3{
-  width: 300px;
-  text-align: center;
+.page-content{
+  background: rgb(255, 235, 222);
 }
 
 .cuadro-comidas{
-  width: 300px;
-  height: 175px;
+  position: relative;
+}
+
+.cuadro-comidas h3{
+  font-size: 10px;
+  text-align: center;
+}
+
+.cuadro-img-comidas{
+  min-height: 100px;
   background: #fdd2cf;
-  border: 2px solid black;
-  border-radius: 10px;
-  display:table-cell;
- vertical-align:middle;
+  border-radius: 30px;
+  position: relative;
 }
 
-.cuadro-comidas img{
-  margin-left: 50px;
+.cuadro-img-comidas img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
+.cuadro-locales{
+  position: relative;
+}
+
+.cuadro-img-locales{
+  min-height: 150px;
+  position: relative;
+}
+
+.cuadro-img-locales img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.campo-locales{
+  display: flex;
+  background: white;
+}
+
+.campo-locales img{
+  margin: 5px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+#local-nombre{
+  margin: 5px 0 0 5px;
+  font-size: 18px;
+}
+
+#local-puntuacion{
+  margin: 0 0 0 5px;
+  color: green;
+  font-size: 16px;
+}
+
+#local-puntuacion i{
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .slider-comidas{
+    max-width: 100px;
+  }
+  .cuadro-comidas{
+    max-width: 100px;
+  }
+}
 
 /* poppins-regular - latin */
 @font-face {
