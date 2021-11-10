@@ -18,6 +18,7 @@ var app = new Framework7({
     { path: '/index/', url: 'index.html', },
     { path: '/about/', url: 'about.html', },
     { path: '/registro/', url: 'registro.html', },
+    { path: '/locales/', url: 'locales.html', },
   ]
   // ... other parameters
 });
@@ -70,7 +71,7 @@ function fnLogin() {
       console.log("Bienvenid@!!! " + emailDelUser);
 
       var idUsuarios = emailDelUser;
-      
+
       var docRef = cUsuarios.doc(idUsuarios);
 
       docRef.get().then((doc) => {
@@ -80,7 +81,7 @@ function fnLogin() {
           console.log(doc.data().nombre);
           console.log(doc.data().rol);
 
-          
+
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");

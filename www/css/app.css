@@ -3,6 +3,15 @@
   background: rgb(255, 235, 222);
 }
 
+.navbar-custom{
+  background: black;
+  color: white;
+}
+
+.search-bar-custom{
+  width: ;
+}
+
 .cuadro-comidas{
   position: relative;
 }
@@ -23,6 +32,19 @@
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+.locales{
+  display: flex;
+}
+
+.locales-title{
+  width: 100%;
+}
+
+.locales-ref{
+  width: 100%;
+  text-align: right;
 }
 
 .cuadro-locales{
