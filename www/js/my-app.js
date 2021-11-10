@@ -19,6 +19,7 @@ var app = new Framework7({
     { path: '/about/', url: 'about.html', },
     { path: '/registro/', url: 'registro.html', },
     { path: '/locales/', url: 'locales.html', },
+    { path: '/registrolocal/', url: 'registrolocal.html', },
   ]
   // ... other parameters
 });
@@ -56,6 +57,14 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
 
 })
 
+$$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  $$("#localButton").on('click', fnLocalRegistro);
+
+})
+
+var nombreCliente;
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
 
@@ -67,12 +76,13 @@ function fnLogin() {
     .then((userCredential) => {
       // Signed in
       var user = userCredential.user;
-
       console.log("Bienvenid@!!! " + emailDelUser);
 
       var idUsuarios = emailDelUser;
 
       var docRef = cUsuarios.doc(idUsuarios);
+      nombreCliente = idUsuarios;
+
 
       docRef.get().then((doc) => {
         if (doc.exists) {
@@ -141,4 +151,28 @@ function fnRegistro() {
 
 
     });
+}
+
+function fnLocalRegistro() {
+
+  var nombre = $$("#localName").val();
+  var ubicacion = $$("#localUbi").val();
+  var sucursal = $$("#localSucursal").val();
+  var observacion = $$("#localObservaciones").val();
+
+  db.collection("Locales").doc(nombre).set({
+
+    emailDelUser: nombreCliente,
+    nombre: nombre,
+    ubicacion: ubicacion,
+    sucursal: sucursal,
+    observacion: observacion
+  })
+    .then(() => {
+      console.log("Document successfully written!");
+    })
+    .catch((error) => {
+      console.error("Error writing document: ", error);
+    });
+
 }
