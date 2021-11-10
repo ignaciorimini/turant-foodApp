@@ -63,13 +63,16 @@ $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
 
 })
 
+
 var nombreCliente;
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
+var seguroInicio = 0;
 
 function fnLogin() {
   var emailDelUser = $$("#lEmail").val();
   var passDelUser = $$("#lPass").val();
+
 
   firebase.auth().signInWithEmailAndPassword(emailDelUser, passDelUser)
     .then((userCredential) => {
@@ -81,7 +84,7 @@ function fnLogin() {
 
       var docRef = cUsuarios.doc(idUsuarios);
       nombreCliente = idUsuarios;
-
+      seguroInicio = 1;
 
       docRef.get().then((doc) => {
         if (doc.exists) {
@@ -113,6 +116,7 @@ function fnLogin() {
 }
 
 function fnRegistro() {
+
 
   var emailDelUser = $$("#rEmail").val();
   var passDelUser = $$("#rPass").val();
@@ -150,6 +154,7 @@ function fnRegistro() {
 
 
     });
+
 }
 
 function fnLocalRegistro() {
@@ -158,20 +163,37 @@ function fnLocalRegistro() {
   var ubicacion = $$("#localUbi").val();
   var sucursal = $$("#localSucursal").val();
   var observacion = $$("#localObservaciones").val();
+  var documento;
 
-  db.collection("Locales").doc(nombre).set({
+  if (seguroInicio == 1) {
+    documento = db.collection("Locales").doc(nombreCliente + "-" + nombre).get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("El local ya existe");
+        } else {
+          db.collection("Locales").doc(nombreCliente + "-" + nombre).set({
 
-    emailDelUser: nombreCliente,
-    nombre: nombre,
-    ubicacion: ubicacion,
-    sucursal: sucursal,
-    observacion: observacion
-  })
-    .then(() => {
-      console.log("Document successfully written!");
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+            emailDelUser: nombreCliente,
+            nombre: nombre,
+            ubicacion: ubicacion,
+            sucursal: sucursal,
+            observacion: observacion
+          })
+
+            .then(() => {
+              console.log("Document successfully written!");
+            })
+            .catch((error) => {
+              console.error("Error writing document: ", error);
+            });
+        }
+
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  } else {
+    console.log("Necesita estar logueado!!!!");
+  }
 
 }
