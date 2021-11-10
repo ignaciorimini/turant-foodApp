@@ -8,10 +8,6 @@
   color: white;
 }
 
-.search-bar-custom{
-  width: ;
-}
-
 .cuadro-comidas{
   position: relative;
 }
@@ -75,7 +71,12 @@
   max-height: 50px;
 }
 
-#local-nombre{
+.local-nombre{
+  margin: 0;
+  font-size: 18px;
+}
+
+.cards-local-nombre{
   margin: 5px 0 0 5px;
   font-size: 18px;
 }

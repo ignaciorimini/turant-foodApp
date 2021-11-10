@@ -64,9 +64,41 @@ $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
 
 })
 
+$$(document).on('page:init', '.page[data-name="locales"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+
+  db.collection("Locales").where("nombre", "==", "Antares").get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data().nombre);
+
+        // $$("#localNombre").val(doc.data().nombre);
+        $$(".block").html(`
+          <div class="campo-locales cards-locales">
+                <img src="img/logo-mcdonalds.png">
+                <div class="texto-locales">
+                    <h4 id="localNombre" class="cards-local-nombre"></h4>
+                    <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                        Mesas disponibles</p>
+                </div>
+            </div>
+            `
+        )
+        $$("#localNombre").text(doc.data().nombre);
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+});
+
+
 var nombreCliente;
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
+
 
 function fnLogin() {
   var emailDelUser = $$("#lEmail").val();
@@ -136,6 +168,7 @@ function fnRegistro() {
       }
 
       cUsuarios.doc(idUsuarios).set(datos);
+      mainView.router.navigate('/registrolocal/');
 
     })
     .catch((error) => {
