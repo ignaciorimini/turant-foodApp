@@ -85,3 +85,15 @@
 }
 
 
+
+.input {
+  width: 40% !important;
+}
+
+.item-label {
+  width: 50% !important;
+}
+.list .item-inner {
+
+justify-content: start !important;
+}
