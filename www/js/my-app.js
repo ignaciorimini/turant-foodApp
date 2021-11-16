@@ -68,25 +68,32 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-  db.collection("Locales").where("nombre", "==", "Antares").get()
+  db.collection("Locales").get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data().nombre);
+        console.log(doc.id, " => ", doc.data());
 
-        // $$("#localNombre").val(doc.data().nombre);
-        $$(".block").html(`
-          <div class="campo-locales cards-locales">
-                <img src="img/logo-mcdonalds.png">
-                <div class="texto-locales">
-                    <h4 id="localNombre" class="cards-local-nombre"></h4>
-                    <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
-                        Mesas disponibles</p>
-                </div>
-            </div>
-            `
-        )
-        $$("#localNombre").text(doc.data().nombre);
+        locales.push(doc.data().nombre);
+
+        console.log(locales);
+
+        var i = 0;
+        var a = "";
+
+        for (i == 0; i < locales.length; i++) {
+          a += `<div class="campo-locales cards-locales">
+                  <img src="img/logo-mcdonalds.png">
+                  <div class="texto-locales">
+                      <h4 id="localNombre" class="cards-local-nombre">`+ locales[i] + `</h4>
+                      <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                          Mesas disponibles</p>
+                  </div>
+              </div>
+              `;
+          $$("#block").append(a);
+        }
+
       });
     })
     .catch((error) => {
@@ -98,7 +105,8 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
 var nombreCliente;
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
-
+var seguroInicio;
+var locales = [];
 
 function fnLogin() {
   var emailDelUser = $$("#lEmail").val();
@@ -114,6 +122,7 @@ function fnLogin() {
 
       var docRef = cUsuarios.doc(idUsuarios);
       nombreCliente = idUsuarios;
+      seguroInicio = 1;
 
 
       docRef.get().then((doc) => {
@@ -192,20 +201,38 @@ function fnLocalRegistro() {
   var ubicacion = $$("#localUbi").val();
   var sucursal = $$("#localSucursal").val();
   var observacion = $$("#localObservaciones").val();
+  var documento;
 
-  db.collection("Locales").doc(nombre).set({
+  if (seguroInicio == 1) {
+    documento = db.collection("Locales").doc(nombreCliente + "-" + nombre).get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("El local ya existe");
+        } else {
+          db.collection("Locales").doc(nombreCliente + "-" + nombre).set({
 
-    emailDelUser: nombreCliente,
-    nombre: nombre,
-    ubicacion: ubicacion,
-    sucursal: sucursal,
-    observacion: observacion
-  })
-    .then(() => {
-      console.log("Document successfully written!");
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+            emailDelUser: nombreCliente,
+            nombre: nombre,
+            ubicacion: ubicacion,
+            sucursal: sucursal,
+            observacion: observacion
+          })
+
+            .then(() => {
+              console.log("Document successfully written!");
+            })
+            .catch((error) => {
+              console.error("Error writing document: ", error);
+            });
+        }
+
+
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  } else {
+    console.log("Necesita estar logueado!!!!");
+  }
 
 }
