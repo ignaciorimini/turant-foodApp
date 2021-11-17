@@ -17,9 +17,11 @@ var app = new Framework7({
   routes: [
     { path: '/index/', url: 'index.html', },
     { path: '/about/', url: 'about.html', },
+    { path: '/login/', url: 'login.html', },
     { path: '/registro/', url: 'registro.html', },
     { path: '/locales/', url: 'locales.html', },
     { path: '/registrolocal/', url: 'registrolocal.html', },
+    { path: '/index-local/', url: 'index-local.html', },
   ]
   // ... other parameters
 });
@@ -46,15 +48,20 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  $$("#lButton").on('click', fnLogin);
-})
 
+})
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   $$("#rButton").on('click', fnRegistro);
 
+})
+
+$$(document).on('page:init', '.page[data-name="login"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  $$("#lButton").on('click', fnLogin);
 })
 
 $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
@@ -76,33 +83,42 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
 
         locales.push(doc.data().nombre);
 
-        console.log(locales);
-
-        var i = 0;
-        var a = "";
-
-        for (i == 0; i < locales.length; i++) {
-          a += `<div class="campo-locales cards-locales">
-                  <img src="img/logo-mcdonalds.png">
-                  <div class="texto-locales">
-                      <h4 id="localNombre" class="cards-local-nombre">`+ locales[i] + `</h4>
-                      <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
-                          Mesas disponibles</p>
-                  </div>
-              </div>
-              `;
-          $$("#block").append(a);
-        }
-
       });
+    })
+    .then(() => {
+      var i = 0;
+      var a = "";
+      console.log(locales);
+      for (i = 0; i < locales.length; i++) {
+        a += `<div class="campo-locales cards-locales">
+              <img src="img/logo-mcdonalds.png">
+              <div class="texto-locales">
+                  <h4 id="localNombre" class="cards-local-nombre">`+ locales[i] + `</h4>
+                  <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                      Mesas disponibles</p>
+              </div>
+          </div>
+          `;
+
+      }
+      $$(".block").html(a);
+      a = null;
+      i = 0;
+      for (i = locales.length; i > 0; i--) {
+        locales.pop();
+      }
+      console.log(locales);
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
+
+
 });
 
 
 var nombreCliente;
+var localname = $$("#localName").val();
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
 var seguroInicio;
@@ -131,6 +147,24 @@ function fnLogin() {
 
           console.log(doc.data().nombre);
           console.log(doc.data().rol);
+
+
+          docRef = db.collection("Locales").doc(nombreCliente + "-" + localname);
+          console.log(nombreCliente + "-" + localname);
+          docRef.get().then((doc) => {
+            if (doc.exists) {
+              console.log("Document data:", doc.data());
+              mainView.router.navigate('/index-local/');
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+              mainView.router.navigate('/registrolocal/');
+            }
+          }).catch((error) => {
+            console.log("Error getting document:", error);
+          });
+
+
 
 
         } else {
@@ -177,7 +211,7 @@ function fnRegistro() {
       }
 
       cUsuarios.doc(idUsuarios).set(datos);
-      mainView.router.navigate('/registrolocal/');
+      mainView.router.navigate('/login/');
 
     })
     .catch((error) => {
@@ -196,23 +230,21 @@ function fnRegistro() {
 }
 
 function fnLocalRegistro() {
-
-  var nombre = $$("#localName").val();
   var ubicacion = $$("#localUbi").val();
   var sucursal = $$("#localSucursal").val();
   var observacion = $$("#localObservaciones").val();
   var documento;
 
   if (seguroInicio == 1) {
-    documento = db.collection("Locales").doc(nombreCliente + "-" + nombre).get()
+    documento = db.collection("Locales").doc(nombreCliente + "-" + localname).get()
       .then((doc) => {
         if (doc.exists) {
           console.log("El local ya existe");
         } else {
-          db.collection("Locales").doc(nombreCliente + "-" + nombre).set({
+          db.collection("Locales").doc(nombreCliente + "-" + localname).set({
 
             emailDelUser: nombreCliente,
-            nombre: nombre,
+            nombre: localname,
             ubicacion: ubicacion,
             sucursal: sucursal,
             observacion: observacion
@@ -226,7 +258,7 @@ function fnLocalRegistro() {
             });
         }
 
-
+        mainView.router.navigate('/index-local/');
       })
       .catch((error) => {
         console.log("Error getting document:", error);
