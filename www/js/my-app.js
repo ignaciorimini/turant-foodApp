@@ -71,6 +71,26 @@ $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
 
 })
 
+$$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  docRef = db.collection("Locales").doc(nombreCliente);
+  console.log(nombreCliente);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      console.log("Document data:", doc.data().nombre);
+      $$(".block").html(doc.data().nombre);
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+
+
+})
+
 $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
@@ -118,7 +138,6 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
 
 
 var nombreCliente;
-var localname = $$("#localName").val();
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
 var seguroInicio;
@@ -149,8 +168,8 @@ function fnLogin() {
           console.log(doc.data().rol);
 
 
-          docRef = db.collection("Locales").doc(nombreCliente + "-" + localname);
-          console.log(nombreCliente + "-" + localname);
+          docRef = db.collection("Locales").doc(nombreCliente);
+          console.log(nombreCliente);
           docRef.get().then((doc) => {
             if (doc.exists) {
               console.log("Document data:", doc.data());
@@ -230,6 +249,7 @@ function fnRegistro() {
 }
 
 function fnLocalRegistro() {
+  var localname = $$("#localName").val();
   var ubicacion = $$("#localUbi").val();
   var sucursal = $$("#localSucursal").val();
   var observacion = $$("#localObservaciones").val();
