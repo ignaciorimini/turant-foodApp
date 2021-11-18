@@ -49,6 +49,8 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
+  $$("#log-out").on('click', fnLogOut);
+
 })
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -74,19 +76,20 @@ $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
 $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  docRef = db.collection("Locales").doc(nombreCliente);
-  console.log(nombreCliente);
-  docRef.get().then((doc) => {
-    if (doc.exists) {
-      console.log("Document data:", doc.data().nombre);
-      $$(".block").html(doc.data().nombre);
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  }).catch((error) => {
-    console.log("Error getting document:", error);
-  });
+
+  db.collection("Locales").where("emailDelUser", "==", nombreCliente)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data().nombre);
+        $$(".block").prepend(doc.data().nombre);
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+
 
 
 })
@@ -168,20 +171,18 @@ function fnLogin() {
           console.log(doc.data().rol);
 
 
-          docRef = db.collection("Locales").doc(nombreCliente);
-          console.log(nombreCliente);
-          docRef.get().then((doc) => {
-            if (doc.exists) {
-              console.log("Document data:", doc.data());
-              mainView.router.navigate('/index-local/');
-            } else {
-              // doc.data() will be undefined in this case
-              console.log("No such document!");
-              mainView.router.navigate('/registrolocal/');
-            }
-          }).catch((error) => {
-            console.log("Error getting document:", error);
-          });
+          db.collection("Locales").where("emailDelUser", "==", nombreCliente)
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                mainView.router.navigate('/index-local/');
+              });
+            })
+            .catch((error) => {
+              console.log("Error getting documents: ", error);
+            });
 
 
 
@@ -287,4 +288,13 @@ function fnLocalRegistro() {
     console.log("Necesita estar logueado!!!!");
   }
 
+}
+
+function fnLogOut() {
+  firebase.auth().signOut().then(() => {
+    console.log("Sign-out successful.");
+    nombreCliente = null;
+  }).catch((error) => {
+    // An error happened.
+  });
 }
