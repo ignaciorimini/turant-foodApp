@@ -43,15 +43,21 @@
         <div class="view view-main">
 
             <!-- Top Navbar -->
-            <div class="navbar">
-                <div class="navbar-bg"></div>
-                <div class="navbar-inner">
-                    <div class="left"><a href="/index/" data-view=".page-content"><i class="icon icon-back"></i></a>
+        <nav class="navbar"> 
+                <div class="contenido">
+                    <p id="rayitas" class="fas fa-bars rayas"></p>
+                    <p class="turant">Turant</p>
+                    <div class="busqueda">
+                        <input type="text" class="buscador" placeholder="¿Qué querés comer?">
                     </div>
-                    <div class="title">Turant</div>
-                    <div class="right"><i class="icon icon-forward"></i></div>
                 </div>
-            </div>
+                <div class="colapse inicial" id="colapso">
+                    <p class="textonav"><a href="/index/" data-view=".page-content">Home</a></p>
+                    <p class="textonav"><a href="#">Login</a></p>
+                    <p class="textonav"><a href="/registro/" data-view=".page-content">Registrarse</a></p>
+                    <p class="textonav"><a href="/registrolocal/" data-view=".page-content">Registrar local</a></p>
+                </div>
+        </nav>
 
             <!-- Toolbar -->
             <div class="toolbar toolbar-bottom">
@@ -105,11 +111,9 @@
 
 
                         <!-- Link to another page -->
-                        <a href="/about/" data-view=".page-content">Sección About</a>
-                        <br><br>
-                        <a href="/registro/" data-view=".page-content">Registrarse</a>
-                        <br><br>
-                        <a href="/registrolocal/" data-view=".page-content">Registrar local</a>
+                        
+                  
+                        
 
                         <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
                         <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
@@ -145,6 +149,7 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="https://kit.fontawesome.com/3f859dd402.js" crossorigin="anonymous"></script>
 
 
     <script>
