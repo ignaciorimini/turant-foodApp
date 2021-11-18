@@ -55,6 +55,43 @@ $$(document).on("page:init", '.page[data-name="registro"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   $$("#rButton").on("click", fnRegistro);
+
+  $$("#titulito").removeClass("inicial");
+  $$("#titulito").addClass("animate__animated");
+  $$("#titulito").addClass("animate__fadeInUpBig");
+
+  setTimeout(function () {
+    $$("#nombre").removeClass("inicial");
+    $$("#nombre").addClass("animate__animated");
+    $$("#nombre").addClass("animate__fadeInLeftBig");
+  }, 500);
+
+  setTimeout(function () {
+    $$("#email").removeClass("inicial");
+    $$("#email").addClass("animate__animated");
+    $$("#email").addClass("animate__fadeInLeftBig");
+  }, 600);
+
+  setTimeout(function () {
+    $$("#contraseña").removeClass("inicial");
+    $$("#contraseña").addClass("animate__animated");
+    $$("#contraseña").addClass("animate__fadeInLeftBig");
+  }, 700);
+
+  setTimeout(function () {
+    $$("#boton").removeClass("inicial");
+    $$("#boton").addClass("animate__animated");
+    $$("#boton").addClass("animate__fadeInUp");
+  }, 1500);
+
+  setTimeout(function () {
+    $$("#boton2").removeClass("inicial");
+    $$("#boton2").addClass("animate__animated");
+    $$("#boton2").addClass("animate__fadeInUp");
+  }, 1600);
+
+  $$("#colapso").addClass("toy");
+  $$("#colapso").addClass("toy");
 });
 
 $$(document).on("page:init", '.page[data-name="registrolocal"]', function (e) {
@@ -65,6 +102,7 @@ $$(document).on("page:init", '.page[data-name="registrolocal"]', function (e) {
 
 $$("#rayitas").on("click", fnCambio);
 
+var redirigir = 1;
 var segurocolapso = 0;
 var nombreCliente;
 var db = firebase.firestore();
@@ -118,39 +156,86 @@ function fnLogin() {
 function fnRegistro() {
   var emailDelUser = $$("#rEmail").val();
   var passDelUser = $$("#rPass").val();
+  var nombreUser = $$("#rName").val();
 
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(emailDelUser, passDelUser)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      console.log("Bienvenid@!!! " + emailDelUser);
-      // ...
-      // mainView.router.navigate('/siguientePantallaDeUsuarioOK/');
+  $$("#entradaemail").removeClass("rojo");
+  $$("#rEmail").removeClass("rojazo");
+  $$("#rPass").removeClass("rojazo");
+  $$("#entradacontraseña").removeClass("rojo");
+  $$("#rName").removeClass("rojazo");
+  $$("#entradanombre").removeClass("rojo");
 
-      var idUsuarios = emailDelUser;
+  if (nombreUser.length <= 2) {
+    $$("#rName").addClass("rojazo");
+    $$("#entradanombre").addClass("rojo");
+  } else {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(emailDelUser, passDelUser)
+      .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+        console.log("Bienvenid@!!! " + emailDelUser);
+        // ...
+        // mainView.router.navigate('/siguientePantallaDeUsuarioOK/');
 
-      nombre = $$("#rName").val();
+        var idUsuarios = emailDelUser;
 
-      datos = {
-        nombre: nombre,
-        rol: "usuario",
-      };
+        nombre = $$("#rName").val();
+        setTimeout(function () {
+          $$(".trigger").toggleClass("drawn");
+        }, 700);
 
-      cUsuarios.doc(idUsuarios).set(datos);
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+        setTimeout(function () {
+          $$("#ticardo").removeClass("inicial");
+          $$("#tiquito").removeClass("inicial");
+          $$("#desaparezco").addClass("inicial");
+          $$("#desaparezco").removeClass("inicialpro");
+        }, 500);
 
-      console.error(errorCode);
-      console.error(errorMessage);
+        setTimeout(function () {
+          redirigir = 1;
+          if (redirigir == 1) {
+            let targetURL = "/index/";
+            let newURL = document.createElement("a");
+            newURL.href = targetURL;
+            document.body.appendChild(newURL);
+            newURL.click();
+          }
+        }, 2500);
 
-      if (errorCode == "auth/email-already-in-use") {
-        console.error("el mail ya esta usado");
-      }
-    });
+        $$("#desaparezco").addClass("inicialpro");
+
+        datos = {
+          nombre: nombre,
+          rol: "usuario",
+        };
+
+        cUsuarios.doc(idUsuarios).set(datos);
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.error(errorCode);
+        console.error(errorMessage);
+
+        if (errorCode == "auth/email-already-in-use") {
+          $$("#entradaemail").addClass("rojo");
+          $$("#rEmail").addClass("rojazo");
+        }
+
+        if (errorCode == "auth/invalid-email") {
+          $$("#entradaemail").addClass("rojo");
+          $$("#rEmail").addClass("rojazo");
+        }
+
+        if (errorCode == "auth/weak-password") {
+          $$("#entradacontraseña").addClass("rojo");
+          $$("#rPass").addClass("rojazo");
+        }
+      });
+  }
 }
 
 function fnLocalRegistro() {
@@ -196,8 +281,6 @@ function fnLocalRegistro() {
 }
 
 function fnCambio() {
-  console.log("hola");
-
   if (segurocolapso == 0) {
     $$("#colapso").removeClass("inicial");
     $$("#colapso").removeClass("notoy");
