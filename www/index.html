@@ -51,7 +51,7 @@
                 </div>
                 <div class="colapse inicial" id="colapso">
                     <p class="textonav"><a href="/index/" data-view=".page-content">Home</a></p>
-                    <p class="textonav"><a href="#">Login</a></p>
+                    <a href="/login/" data-view=".page-content"><p class="textonav" id="logueo">Login</p></a>
                     <p class="textonav"><a href="/registro/" data-view=".page-content">Registrarse</a></p>
                     <p class="textonav"><a href="/registrolocal/" data-view=".page-content">Registrar local</a></p>
                 </div>
@@ -60,9 +60,6 @@
             <!-- Toolbar -->
             <div class="toolbar toolbar-bottom">
                 <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
                 </div>
             </div>
 
@@ -71,39 +68,8 @@
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <div class="block">
-                        <p>Page content goes here</p>
-                        <div class="block-title">Login</div>
                         <div class="block block-strong">
-                            <div class="list inline-labels no-hairlines-md">
-                                <ul>
-                                    <li class="item-content item-input">
-                                        <div class="item-media">
-                                            <i class="icon demo-list-icon"></i>
-                                        </div>
-                                        <div class="item-inner">
-                                            <div class="item-title item-label">E-mail</div>
-                                            <div class="item-input-wrap">
-                                                <input type="email" placeholder="Your e-mail" id="lEmail" />
-                                                <span class="input-clear-button"></span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-content item-input">
-                                        <div class="item-media">
-                                            <i class="icon demo-list-icon"></i>
-                                        </div>
-                                        <div class="item-inner">
-                                            <div class="item-title item-label">Password</div>
-                                            <div class="item-input-wrap">
-                                                <input type="password" placeholder="Your password" id="lPass" />
-                                                <span class="input-clear-button"></span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="row">
-                                    <button class="col button button-fill" id="lButton">Button</button>
-                                </div>
+                            
                             </div>
                         </div>
 
@@ -114,7 +80,7 @@
                         
 
                         <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
-                        <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
+                     
 
                         <!-- And somewhere in DOM -->
                         <div class="popup my-popup">
