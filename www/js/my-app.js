@@ -37,6 +37,8 @@ $$(document).on("page:init", function (e) {
   $$("#colapso").removeClass("notoy");
   $$("#colapso").removeClass("toy");
   $$("#colapso").addClass("inicial");
+  $$("#textonavbar").removeClass("toytexto");
+  $$("#textonavbar").removeClass("notoytexto");
 
   segurocolapso = 0;
 });
@@ -168,7 +170,100 @@ $$(document).on("page:init", '.page[data-name="registro"]', function (e) {
 $$(document).on("page:init", '.page[data-name="registrolocal"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  $$("#localButton").on("click", fnLocalRegistro);
+
+  if (nombreCliente == undefined) {
+    $$("#desaparezco").addClass("inicial");
+    $$("#noregistrado").removeClass("inicial");
+  } else {
+    $$("#localButton").on("click", fnLocalRegistro);
+    fallo = 3;
+    guardador = "";
+    console.log(e);
+    var modal = 0;
+
+    $$("body").on("click", function () {
+      if (modal == 1) {
+        $$("#modal").removeClass("dudaon");
+        $$("#modal").addClass("dudaoff");
+        modal = 2;
+        setTimeout(function () {
+          $$("#modal").removeClass("dudaoff");
+          $$("#modal").addClass("inicial");
+          modal = 0;
+        }, 200);
+      }
+    });
+
+    $$("#toco").on("click", function () {
+      if (modal == 0) {
+        $$("#modal").removeClass("inicial");
+        $$("#modal").addClass("dudaon");
+        modal = 2;
+        setTimeout(function () {
+          modal = 1;
+        }, 200);
+      }
+    });
+
+    $$("#localObservaciones").on("click", function () {
+      if (fallo == 0) {
+        $$("#localObservaciones").val(guardador);
+      }
+    });
+
+    $$("#localName").on("click", function () {
+      if (fallo == 1) {
+        $$("#localName").val(guardador);
+      }
+    });
+
+    $$("#localUbi").on("click", function () {
+      if (fallo == 2) {
+        $$("#localUbi").val(guardador);
+      }
+    });
+
+    var random = Math.floor(Math.random() * 5);
+
+    setTimeout(function () {
+      $$("#titulito" + random).removeClass("inicial");
+      $$("#titulito" + random).addClass("animate__animated");
+      $$("#titulito" + random).addClass("animate__fadeInUpBig");
+    }, 200);
+
+    setTimeout(function () {
+      $$("#nombre").removeClass("inicial");
+      $$("#nombre").addClass("animate__animated");
+      $$("#nombre").addClass("animate__fadeInLeftBig");
+    }, 700);
+
+    setTimeout(function () {
+      $$("#ubi").removeClass("inicial");
+      $$("#ubi").addClass("animate__animated");
+      $$("#ubi").addClass("animate__fadeInLeftBig");
+    }, 800);
+
+    setTimeout(function () {
+      $$("#sucursal").removeClass("inicial");
+      $$("#sucursal").addClass("animate__animated");
+      $$("#sucursal").addClass("animate__fadeInLeftBig");
+    }, 900);
+
+    setTimeout(function () {
+      $$("#observaciones").removeClass("inicial");
+      $$("#observaciones").addClass("animate__animated");
+      $$("#observaciones").addClass("animate__fadeInLeftBig");
+    }, 1000);
+
+    setTimeout(function () {
+      $$("#boton").removeClass("inicial");
+      $$("#boton").addClass("animate__animated");
+      $$("#boton").addClass("animate__fadeInUp");
+    }, 1800);
+
+    $$("#colapso").addClass("toy");
+    $$("#colapso").addClass("toy");
+  }
 });
 
 $$("#rayitas").on("click", fnCambio);
@@ -394,14 +489,49 @@ function fnLocalRegistro() {
   var observacion = $$("#localObservaciones").val();
   var documento;
 
-  if (seguroInicio == 1) {
+  $$("#entradanombre").removeClass("rojo");
+  $$("#localName").removeClass("rojazo");
+  $$("#localUbi").removeClass("rojazo");
+  $$("#entradaubi").removeClass("rojo");
+  $$("#localObservaciones").removeClass("rojazo");
+  $$("#entradaobservaciones").removeClass("rojo");
+
+  if (nombre.length <= 2) {
+    $$("#entradanombre").addClass("rojo");
+    $$("#localName").addClass("rojazo");
+    guardador = $$("#localName").val();
+    $$("#localName").val("Mínimo 3 caracteres");
+    fallo = 1;
+  } else if (nombre.length >= 27) {
+    $$("#entradanombre").addClass("rojo");
+    $$("#localName").addClass("rojazo");
+    guardador = $$("#localName").val();
+    $$("#localName").val("Máximo 26 caracteres");
+    fallo = 1;
+  } else if (ubicacion.length <= 3 || ubicacion.length >= 27) {
+    $$("#entradaubi").addClass("rojo");
+    $$("#localUbi").addClass("rojazo");
+    guardador = $$("#localUbi").val();
+    $$("#localUbi").val("Ubicación invalida");
+    fallo = 2;
+  } else if (observacion.length >= 51) {
+    $$("#entradaobservaciones").addClass("rojo");
+    $$("#localObservaciones").addClass("rojazo");
+    guardador = $$("#localObservaciones").val();
+    $$("#localObservaciones").val("Máximo 200 caracteres");
+    fallo = 0;
+  } else {
     documento = db
       .collection("Locales")
       .doc(nombreCliente + "-" + nombre)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("El local ya existe");
+          $$("#entradanombre").addClass("rojo");
+          $$("#localName").addClass("rojazo");
+          guardador = $$("#localName").val();
+          $$("#localName").val("El local ya existe");
+          fallo = 1;
         } else {
           db.collection("Locales")
             .doc(nombreCliente + "-" + nombre)
@@ -414,7 +544,19 @@ function fnLocalRegistro() {
             })
 
             .then(() => {
-              console.log("Document successfully written!");
+              $$("#logueo").text(nombreCliente);
+
+              setTimeout(function () {
+                $$(".trigger").toggleClass("drawn");
+              }, 700);
+
+              setTimeout(function () {
+                $$("#ticardo").removeClass("inicial");
+                $$("#tiquito").removeClass("inicial");
+                $$("#desaparezco").addClass("inicial");
+                $$("#desaparezco").removeClass("inicialpro");
+              }, 500);
+              $$("#desaparezco").addClass("inicialpro");
             })
             .catch((error) => {
               console.error("Error writing document: ", error);
@@ -424,8 +566,6 @@ function fnLocalRegistro() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  } else {
-    console.log("Necesita estar logueado!!!!");
   }
 }
 
@@ -434,10 +574,29 @@ function fnCambio() {
     $$("#colapso").removeClass("inicial");
     $$("#colapso").removeClass("notoy");
     $$("#colapso").addClass("toy");
+    $$("#textonavbar").removeClass("notoytexto");
+    $$("#textonavbar").addClass("toytexto");
     segurocolapso = 1;
   } else {
     $$("#colapso").addClass("notoy");
     $$("#colapso").removeClass("toy");
+    $$("#textonavbar").removeClass("toytexto");
+    $$("#textonavbar").addClass("notoytexto");
     segurocolapso = 0;
   }
 }
+
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+.then(() => {
+  // Existing and future Auth states are now persisted in the current
+  // session only. Closing the window would clear any existing state even
+  // if a user forgets to sign out.
+  // ...
+  // New sign-in will be persisted with session persistence.
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+})
+.catch((error) => {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+});

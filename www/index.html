@@ -44,18 +44,22 @@
         <div class="view view-main">
 
             <!-- Top Navbar -->
-        <nav class="navbar"> 
+            <nav class="navbar">
                 <div class="contenido">
                     <p id="rayitas" class="fas fa-bars rayas"></p>
                     <p class="turant">Turant</p>
                 </div>
                 <div class="colapse inicial" id="colapso">
-                    <p class="textonav"><a href="/index/" data-view=".page-content">Home</a></p>
-                    <a href="/login/" data-view=".page-content"><p class="textonav" id="logueo">Login</p></a>
-                    <p class="textonav"><a href="/registro/" data-view=".page-content">Registrarse</a></p>
-                    <p class="textonav"><a href="/registrolocal/" data-view=".page-content">Registrar local</a></p>
+                    <div id="textonavbar">
+                        <p class="textonav"><a href="/index/" data-view=".page-content">Home</a></p>
+                        <a href="/login/" data-view=".page-content">
+                            <p class="textonav" id="logueo">Login</p>
+                        </a>
+                        <p class="textonav"><a href="/registro/" data-view=".page-content">Registrarse</a></p>
+                        <p class="textonav"><a href="/registrolocal/" data-view=".page-content">Registrar local</a></p>
+                    </div>
                 </div>
-        </nav>
+            </nav>
 
             <!-- Toolbar -->
             <div class="toolbar toolbar-bottom">
@@ -67,43 +71,20 @@
             <div data-name="index" class="page">
                 <!-- Scrollable page content -->
                 <div class="page-content">
-                    <div class="block">
-                        <div class="block block-strong">
-                            
-                            </div>
-                        </div>
 
-
-                        <!-- Link to another page -->
-                        
-                  
-                        
-
-                        <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
-                     
-
-                        <!-- And somewhere in DOM -->
-                        <div class="popup my-popup">
-                            <div class="view">
-                                <div class="page">
-                                    <div class="navbar">
-                                        <div class="navbar-bg"></div>
-                                        <div class="navbar-inner">
-                                            <div class="title">Popup</div>
-                                            <div class="right">
-                                                <!-- Link to close popup -->
-                                                <a class="link popup-close">Close</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="page-content">
-                                        ...
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+
+     
+
+
+
+
+                    <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
+
+
+                    <!-- And somewhere in DOM -->
+                 
             </div>
         </div>
     </div>

@@ -186,13 +186,11 @@
 @keyframes holajorge {
   0% {
     height: 0%;
-    opacity: 0;
   }
 
 
   100% {
     height: 310%;
-    opacity: 1;
   }
 
 }
@@ -200,15 +198,53 @@
 @keyframes tunohasvistonada {
   0% {
     height: 310%;
-    opacity: 1;
   }
 
   100% {
     height: 0%;
-    opacity: 0;
     visibility: hidden;
   }
 
+}
+
+@keyframes textohola {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes textochau {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+.notoytexto {
+  animation-name: textochau;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1, 0.4, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+.toytexto {
+  animation-name: textohola;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1, 0.4, 0.2, 1);
+  animation-fill-mode: forwards;
 }
 
 a {
@@ -343,9 +379,69 @@ background-color: rgb(14, 179, 14);
   border: 1px solid red;
 }
 
-
-
 .rojazo {
   color: red !important;
 }
 
+select {
+  width: 100% !important;
+}
+
+.flexible {
+  display: flex;
+}
+
+#toco {
+  margin-top: 26px;
+  margin-left: 5px;
+}
+
+.modal {
+  margin-left: 10px;
+  margin-top: 24px;
+  background-color: white;
+  border-radius: 4px;
+  padding: 0px 4px;
+  height: 17px;
+}
+
+#modaltexto {
+  font-size: 12px;
+  margin: 0;
+}
+
+.dudaon {
+  animation-name: aparezcoentrelassombras;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.dudaoff {
+  animation-name: chaujorgito;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes aparezcoentrelassombras {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes chaujorgito {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
