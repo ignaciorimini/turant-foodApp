@@ -2,38 +2,54 @@
 <div class="page" data-name="login">
 
     <div class="page-content">
-        <div class="block-title">Login</div>
-        <div class="block block-strong">
-            <div class="list inline-labels no-hairlines-md">
-                <ul>
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">E-mail</div>
-                            <div class="item-input-wrap">
-                                <input type="email" placeholder="Your e-mail" id="lEmail" />
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">Password</div>
-                            <div class="item-input-wrap">
-                                <input type="password" placeholder="Your password" id="lPass" />
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="row">
-                    <button class="col button button-fill" id="lButton">Button</button>
+        <div class="block-title" id="todo">
+            <div id="tiquito" class="tiquito inicial">
+                <div class="inicial" id="ticardo">
+                    <div class="trigger"></div>
+                    <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 37 37"
+                        style="enable-background:new 0 0 37 37;" xml:space="preserve">
+                        <path class="circ path"
+                            style="fill:none;stroke: black;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                            d="
+	M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z" />
+                        <polyline class="tick path"
+                            style="fill:none;stroke:black;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                            points="
+	11.6,20 15.9,24.2 26.4,13.8 " />
+                    </svg>
+                </div>
+            </div>
+
+            <div id="desaparezco">
+                <p class="titulazo inicial" id="titulito0">Ready to rock</p>
+                <p class="titulazo inicial" id="titulito1">Jorge campeón!</p>
+                <p class="titulazo inicial" id="titulito2">Un paso más...</p>
+                <p class="titulazo inicial" id="titulito3">No somos TheFork</p>
+                <p class="titulazo inicial" id="titulito4">Linda hamburguesa</p>
+
+                <div class="entraditas inicial" id="email">
+                    <p class="entradatexto  contenedor">Correo</p>
+                    <div class="entrada" id="entradaemail">
+                        <input type="email" class="input" maxlength="26" placeholder="Ej: aguantejorge@gmail.com"
+                            id="lEmail" />
+                    </div>
+                </div>
+                <div class="entraditas inicial" id="contraseña">
+                    <p class="entradatexto" id="entrada1">Contraseña</p>
+                    <div class="entrada" id="entradacontraseña">
+                        <input type="password" class="input" placeholder="Ej: jorge123" id="lPass" />
+                    </div>
+                </div>
+
+                <div class="row inicial" id="boton">
+                    <button class="col button button-fill" id="lButton">Adentro!</button>
+                </div>
+                <div class="row inicial" id="boton2">
+                    <a href="/registro/" data-view=".page-content" class="botonazo"><button
+                            class="col button button-fill" id="rButton2">No tengo cuenta</button></a>
                 </div>
             </div>
         </div>
     </div>
+</div>
