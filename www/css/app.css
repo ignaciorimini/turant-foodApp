@@ -95,6 +95,322 @@
   margin-bottom: 20px;
 }
 
+.contenido {
+  display: flex;
+  color: white;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  margin-left: 10px;
+}
+
+
+
+.navbar {
+  background-color: black;
+  align-items: center;
+}
+
+.turant {
+  font-size: 30px;
+  margin-left: 3%;
+}
+
+
+.rayas {
+  font-size: 25px;
+}
+
+.colapse {
+  background-color: black;
+  color: white;
+  height: 310%;
+}
+
+.inicial {
+  opacity: 0;
+  display: none;
+}
+
+.notoy {
+  animation-name: tunohasvistonada;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1, 0.4, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+.toy {
+  animation-name: holajorge;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1, 0.4, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes holajorge {
+  0% {
+    height: 0%;
+  }
+
+
+  100% {
+    height: 310%;
+  }
+
+}
+
+@keyframes tunohasvistonada {
+  0% {
+    height: 310%;
+  }
+
+  100% {
+    height: 0%;
+    visibility: hidden;
+  }
+
+}
+
+@keyframes textohola {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes textochau {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+.notoytexto {
+  animation-name: textochau;
+  animation-duration: 0.1s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1, 0.4, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+.toytexto {
+  animation-name: textohola;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1, 0.4, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+a {
+  color: white !important;
+}
+
+.textonav {
+  margin: 0px !important;
+  margin-bottom: 14px !important;
+  margin-left: 20px !important;
+}
+
+.entrada {
+  background-color: white;
+  margin-top: 10px;
+  margin-right: 0 !important;
+  width: 100%;
+  padding: 10px;
+  border: solid 1px black;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.contenedor {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.entradatexto{
+  color: black;
+  font-size: 17px;
+  margin: 0;
+}
+
+#entrada1 {
+  margin-top: 25px;
+}
+
+.input {
+  color: black !important;
+}
+
+input {
+  width: 100%;
+}
+
+.titulazo {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  font-size: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  color: black;
+}
+
+#boton {
+  margin-top: 30px;
+}
+
+.botonazo {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#rButton2{
+background-color: rgb(14, 179, 14);
+}
+
+
+.circ{
+  opacity: 0;
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+.tick{
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  -webkit-transition: stroke-dashoffset 1s 0.5s ease-out;
+  -moz-transition: stroke-dashoffset 1s 0.5s ease-out;
+  -ms-transition: stroke-dashoffset 1s 0.5s ease-out;
+  -o-transition: stroke-dashoffset 1s 0.5s ease-out;
+  transition: stroke-dashoffset 1s 0.5s ease-out;
+}
+.drawn + svg .path{
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+
+#ticardo {
+  width: 100%;
+  margin-top: 18%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.tiquito {
+  margin: 30% auto;
+  width: 60%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.inicialpro {
+  animation-name: desapareciendo;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes desapareciendo{
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+
+  }
+
+}
+
+.rojo{
+  border: 1px solid red;
+}
+
+.rojazo {
+  color: red !important;
+}
+
+select {
+  width: 100% !important;
+}
+
+.flexible {
+  display: flex;
+}
+
+#toco {
+  margin-top: 26px;
+  margin-left: 5px;
+}
+
+.modal {
+  margin-left: 10px;
+  margin-top: 24px;
+  background-color: white;
+  border-radius: 4px;
+  padding: 0px 4px;
+  height: 17px;
+}
+
+#modaltexto {
+  font-size: 12px;
+  margin: 0;
+}
+
+.dudaon {
+  animation-name: aparezcoentrelassombras;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.dudaoff {
+  animation-name: chaujorgito;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes aparezcoentrelassombras {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes chaujorgito {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 600px) {
   .slider-comidas{
     max-width: 100px;

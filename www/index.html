@@ -44,15 +44,22 @@
         <div class="view view-main">
 
             <!-- Top Navbar -->
-            <div class="navbar">
-                <div class="navbar-bg"></div>
-                <div class="navbar-inner navbar-custom">
-                    <div class="left"><a href="/index/" data-view=".page-content"><i class="icon icon-back"></i></a>
-                    </div>
-                    <div class="title">Turant</div>
-                    <div class="right"><i class="icon icon-forward"></i></div>
+            <nav class="navbar">
+                <div class="contenido">
+                    <p id="rayitas" class="fas fa-bars rayas"></p>
+                    <p class="turant">Turant</p>
                 </div>
-            </div>
+                <div class="colapse inicial" id="colapso">
+                    <div id="textonavbar">
+                        <p class="textonav"><a href="/index/" data-view=".page-content">Home</a></p>
+                        <a href="/login/" data-view=".page-content">
+                            <p class="textonav" id="logueo">Login</p>
+                        </a>
+                        <p class="textonav"><a href="/registro/" data-view=".page-content">Registrarse</a></p>
+                        <p class="textonav"><a href="/registrolocal/" data-view=".page-content">Registrar local</a></p>
+                    </div>
+                </div>
+            </nav>
 
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="index" class="page">

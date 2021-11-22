@@ -2,65 +2,82 @@
 <div class="page" data-name="registrolocal">
 
     <div class="page-content">
-        <div class="block-title">Registro</div>
-        <div class="block block-strong">
-            <div class="list inline-labels no-hairlines-md">
-                <ul>
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">Nombre del local</div>
-                            <div class="item-input-wrap">
-                                <input type="text" placeholder="Nombre del local" id="localName" />
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">Ubicación</div>
-                            <div class="item-input-wrap">
-                                <input type="text" placeholder="Ubicación" id="localUbi" />
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">Sucursal</div>
-                            <div class="item-input-wrap">
-                                <select name="cars" id="localSucursal">
-                                    <option value="Sí">Sí</option>
-                                    <option value="No">No</option>
-                                </select>
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-media">
-                            <i class="icon demo-list-icon"></i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title item-label">Observaciones</div>
-                            <div class="item-input-wrap">
-                                <input type="text" placeholder="Observaciones" id="localObservaciones" />
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="row">
-                    <button class="col button button-fill" id="localButton">Button</button>
+
+        <div class="block-title" id="todo">
+            <div id="tiquito" class="tiquito inicial">
+                <div class="inicial" id="ticardo">
+                    <div class="trigger"></div>
+                    <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 37 37"
+                        style="enable-background:new 0 0 37 37;" xml:space="preserve">
+                        <path class="circ path"
+                            style="fill:none;stroke: black;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                            d="
+	M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z" />
+                        <polyline class="tick path"
+                            style="fill:none;stroke:black;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                            points="
+	11.6,20 15.9,24.2 26.4,13.8 " />
+                    </svg>
+                </div>
+            </div>
+
+            <div id="desaparezco">
+                <p class="titulazo inicial" id="titulito0">Mamá me enseñó</p>
+                <p class="titulazo inicial" id="titulito1">Soy mi propio jefe</p>
+                <p class="titulazo inicial" id="titulito2">Un botón, un sueño</p>
+                <p class="titulazo inicial" id="titulito3">Hora del show</p>
+                <p class="titulazo inicial" id="titulito4">Damián lo entendió</p>
+
+                <div class="entraditas inicial" id="nombre">
+                    <p class="entradatexto  contenedor">Nombre del local</p>
+                    <div class="entrada" id="entradanombre">
+                        <input type="text" class="input" maxlength="26" placeholder="Ej: Rock&Feller" id="localName" />
+                    </div>
+                </div>
+                <div class="entraditas inicial" id="ubi">
+                    <p class="entradatexto" id="entrada1">Ubicación</p>
+                    <div class="entrada" id="entradaubi">
+
+                        <input type="text" class="input" maxlength="26" placeholder="Ej: Oroño 106" id="localUbi" />
+                    </div>
+                </div>
+                <div class="entraditas inicial" id="sucursal">
+                <div class="flexible">
+                    <p class="entradatexto" id="entrada1">Sucursal</p>
+                    <i class="far fa-question-circle" id="toco"></i>
+                    <div class="modal inicial" id="modal">
+                        <p id="modaltexto">Local único o sucursal</p>
+                    </div>
+                </div>
+                    <div class="entrada" id="entradasucursal">
+                        <select name="Sucursal" class="input" id="localSucursal">
+                            <option value="0">No</option>
+                            <option value="1">Sí</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="entraditas inicial" id="observaciones">
+                    <p class="entradatexto" id="entrada1">Observaciones</p>
+                    <div class="entrada" id="entradaobservaciones">
+                        <input type="text" class="input" maxlength="50" placeholder="Ej: Está cerrado temporalmente"
+                            id="localObservaciones" />
+                    </div>
+                </div>
+
+                <div class="row inicial" id="boton">
+                    <button class="col button button-fill" id="localButton">Es hora de crecer</button>
+                </div>
+            </div>
+            <div id="noregistrado" class="inicial">
+                <p class="titulazo" id="titulito">No estás logueado</p>
+                <div class="row" id="boton">
+                    <a href="/login/" data-view=".page-content" class="botonazo"><button
+                            class="col button button-fill" id="rButton">Ya tengo cuenta</button></a>
+                    <a href="/registro/" data-view=".page-content" class="botonazo"><button
+                            class="col button button-fill" id="rButton2">No tengo cuenta</button></a>
                 </div>
             </div>
         </div>
     </div>
+</div>
