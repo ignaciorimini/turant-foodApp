@@ -518,7 +518,7 @@ function fnRegistro() {
           setTimeout(function () {
             redirigir = 1;
             if (redirigir == 1) {
-              let targetURL = "/index-local/";
+              let targetURL = "/registrolocal/";
               let newURL = document.createElement("a");
               newURL.href = targetURL;
               document.body.appendChild(newURL);
@@ -644,6 +644,18 @@ function fnLocalRegistro() {
                 $$("#desaparezco").removeClass("inicialpro");
               }, 500);
               $$("#desaparezco").addClass("inicialpro");
+
+              setTimeout(function () {
+                redirigir = 1;
+                if (redirigir == 1) {
+                  let targetURL = "/index-local/";
+                  let newURL = document.createElement("a");
+                  newURL.href = targetURL;
+                  document.body.appendChild(newURL);
+                  newURL.click();
+                }
+              }, 2500);
+
             })
             .catch((error) => {
               console.error("Error writing document: ", error);
@@ -661,6 +673,8 @@ function fnLogOut() {
   firebase.auth().signOut().then(() => {
     console.log("Sign-out successful.");
     nombreCliente = null;
+    $$("#logueo").text("Login");
+
   }).catch((error) => {
     // An error happened.
   });
