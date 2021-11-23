@@ -213,7 +213,7 @@
   animation-fill-mode: forwards;
 }
 
-a {
+.navbar a {
   color: white !important;
 }
 
