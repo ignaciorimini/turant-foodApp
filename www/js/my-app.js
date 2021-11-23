@@ -1,4 +1,3 @@
-// If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
 var app = new Framework7({
@@ -21,6 +20,7 @@ var app = new Framework7({
     { path: '/locales/', url: 'locales.html', },
     { path: '/registrolocal/', url: 'registrolocal.html', },
     { path: '/index-local/', url: 'index-local.html', },
+    { path: '/localesmenu/', url: 'localesmenu.html', },
   ]
   // ... other parameters
 });
@@ -57,6 +57,17 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
   $$("#log-out").on('click', fnLogOut);
 
+})
+
+$$(document).on('page:init', '.page[data-name="localesmenu"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  for (i = locales.length; i > 0; i--) {
+    comidanombre.pop();
+    comidadescripcion.pop();
+    comidaimagen.pop();
+    comidaprecio.pop();
+  }
+  console.log(e);
 })
 
 $$(document).on('page:init', '.page[data-name="login"]', function (e) {
@@ -279,6 +290,7 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
+
   db.collection("Locales").where("emailDelUser", "==", nombreCliente)
     .get()
     .then((querySnapshot) => {
@@ -299,6 +311,10 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
 $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
+  for (i = locales.length; i > 0; i--) {
+    locales.pop();
+  }
+
 
   db.collection("Locales").get()
     .then((querySnapshot) => {
@@ -307,15 +323,16 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
         console.log(doc.id, " => ", doc.data());
 
         locales.push(doc.data().nombre);
+        locales.sort();
 
       });
     })
     .then(() => {
       var i = 0;
       var a = "";
-      console.log(locales);
       for (i = 0; i < locales.length; i++) {
-        a += `<div class="campo-locales cards-locales">
+       
+        a += `<a onclick="fnLocales(`+i+`)" href="/localesmenu/" data-view=".page-content" id="`+ locales[i] + `"><div class="campo-locales cards-locales">
               <img src="img/logo-mcdonalds.png">
               <div class="texto-locales">
                   <h4 id="localNombre" class="cards-local-nombre">`+ locales[i] + `</h4>
@@ -323,16 +340,14 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
                       Mesas disponibles</p>
               </div>
           </div>
+          </a>
           `;
-
       }
+
       $$(".block").html(a);
       a = null;
       i = 0;
-      for (i = locales.length; i > 0; i--) {
-        locales.pop();
-      }
-      console.log(locales);
+
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -351,6 +366,11 @@ var locales = [];
 var guardador;
 var redirigir = 1;
 var segurocolapso = 0;
+var identificacion;
+var comidanombre = [];
+var comidadescripcion = [];
+var comidaimagen = [];
+var comidaprecio = [];
 
 $$("#rayitas").on("click", fnCambio);
 
@@ -576,6 +596,9 @@ function fnLocalRegistro() {
   var observacion = $$("#localObservaciones").val();
   var documento;
 
+  nombre = nombre[0].toUpperCase() + nombre.slice(1);
+  ubicacion = ubicacion[0].toUpperCase() + ubicacion.slice(1);
+
   $$("#entradanombre").removeClass("rojo");
   $$("#localName").removeClass("rojazo");
   $$("#localUbi").removeClass("rojazo");
@@ -680,3 +703,84 @@ function fnLogOut() {
   });
 }
 
+function fnCambio() {
+
+  if (segurocolapso == 0) {
+    $$("#colapso").removeClass("inicial");
+    $$("#colapso").removeClass("notoy");
+    $$("#colapso").addClass("toy");
+    $$("#textonavbar").removeClass("notoytexto");
+    $$("#textonavbar").addClass("toytexto");
+    segurocolapso = 1;
+  } else {
+    $$("#colapso").addClass("notoy");
+    $$("#colapso").removeClass("toy");
+    $$("#textonavbar").removeClass("toytexto");
+    $$("#textonavbar").addClass("notoytexto");
+    segurocolapso = 0;
+  }
+}
+
+function fnLocales(identificador){
+  var ubi
+  console.log("Entre");
+  console.log(locales[identificador]);
+  db.collection("Locales").where("nombre", "==", locales[identificador]).get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            ubi = doc.data().ubicacion;
+            db.collection("Locales").doc(doc.id).collection("Comidas")
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  console.log(doc.id, " => ", doc.data());
+                  comidanombre.push(doc.data().nombre);
+                  comidadescripcion.push(doc.data().descripcion);
+                  comidaimagen.push(doc.data().imagen);
+                  comidaprecio.push(doc.data().precio);
+                  
+              });
+              
+        }) 
+        .then(() => {
+          var ab = "";
+
+          $$("#textotopping").text(ubi);
+          for (i = 0; i < comidanombre.length; i++) {
+           
+            ab += `<div class="contenedorcomidas">
+                  <div class="foto">
+                  <img class="imagencomida" src="`+comidaimagen[i]+`">
+                  </div>
+                  <div class="texto-locales">
+                      <h1 id="localNombre" class="cards-local-nombre">`+ comidanombre[i] + `</h1>
+                      <p id="comidadescripcion">`+comidadescripcion[i]+`</p>
+                      <p id="comidaprecio"><b>`+comidaprecio[i]+`$</b></p>
+                  </div>
+              </div>
+              </a>
+              `;
+          }
+          setTimeout(function () {
+            $$("#todo").html(ab)
+        
+          }, 500);
+        })
+        
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+      });
+        
+    })
+  })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
+
+
+      
+  }
