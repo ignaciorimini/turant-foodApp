@@ -289,6 +289,10 @@ $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
 $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
+  for (i = nombrerestaurante.length; i > 0; i--) {
+    nombrerestaurante.pop();
+    imagenrestaurante.pop();
+  }
 
 
   db.collection("Locales").where("emailDelUser", "==", nombreCliente)
@@ -297,8 +301,31 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data().nombre);
-        $$(".block").prepend(doc.data().nombre);
+        nombrerestaurante.push(doc.data().nombre);
+        imagenrestaurante.push(doc.data().imagen);
+        
       });
+    })
+
+    .then(() => {
+      var c = "";
+      for (i = 0; i < nombrerestaurante.length; i++) {
+       
+        c += `<div class="campo-locales cards-locales">
+              <img src="`+imagenrestaurante[i]+`">
+              <div class="texto-locales">
+                  <h4 id="localNombre" class="cards-local-nombre">`+ nombrerestaurante[i] + `</h4>
+                  <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
+                      Mesas disponibles</p>
+              </div>
+          </div>
+          `;
+      }
+
+      $$(".cartitaperso").html(c);
+      c = null;
+      i = 0;
+
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -371,6 +398,8 @@ var comidanombre = [];
 var comidadescripcion = [];
 var comidaimagen = [];
 var comidaprecio = [];
+var nombrerestaurante = [];
+var imagenrestaurante = [];
 
 $$("#rayitas").on("click", fnCambio);
 
@@ -473,6 +502,14 @@ function fnLogin() {
       if (errorCode == "auth/wrong-password") {
         $$("#entradacontraseña").addClass("rojo");
         $$("#lPass").addClass("rojazo");
+      }
+
+      if (errorCode == "auth/user-not-found") {
+        guardador = $$("#lEmail").val();
+        $$("#lEmail").val("Email inexistente");
+        $$("#entradaemail").addClass("rojo");
+        $$("#lEmail").addClass("rojazo");
+        fallo = 1;
       }
     });
 
@@ -584,6 +621,8 @@ function fnRegistro() {
             $$("#entradacontraseña").addClass("rojo");
             $$("#rPass").addClass("rojazo");
           }
+
+
         });
     }
   };
@@ -595,9 +634,6 @@ function fnLocalRegistro() {
   var sucursal = $$("#localSucursal").val();
   var observacion = $$("#localObservaciones").val();
   var documento;
-
-  nombre = nombre[0].toUpperCase() + nombre.slice(1);
-  ubicacion = ubicacion[0].toUpperCase() + ubicacion.slice(1);
 
   $$("#entradanombre").removeClass("rojo");
   $$("#localName").removeClass("rojazo");
@@ -612,11 +648,11 @@ function fnLocalRegistro() {
     guardador = $$("#localName").val();
     $$("#localName").val("Mínimo 3 caracteres");
     fallo = 1;
-  } else if (nombre.length >= 27) {
+  } else if (nombre.length >= 20) {
     $$("#entradanombre").addClass("rojo");
     $$("#localName").addClass("rojazo");
     guardador = $$("#localName").val();
-    $$("#localName").val("Máximo 26 caracteres");
+    $$("#localName").val("Máximo 19 caracteres");
     fallo = 1;
   } else if (ubicacion.length <= 3 || ubicacion.length >= 27) {
     $$("#entradaubi").addClass("rojo");
@@ -643,6 +679,8 @@ function fnLocalRegistro() {
           $$("#localName").val("El local ya existe");
           fallo = 1;
         } else {
+          nombre = nombre[0].toUpperCase() + nombre.slice(1);
+          ubicacion = ubicacion[0].toUpperCase() + ubicacion.slice(1);
           db.collection("Locales")
             .doc(nombreCliente + "-" + nombre)
             .set({
@@ -722,7 +760,7 @@ function fnCambio() {
 }
 
 function fnLocales(identificador){
-  var ubi
+  var ubi;
   console.log("Entre");
   console.log(locales[identificador]);
   db.collection("Locales").where("nombre", "==", locales[identificador]).get()
