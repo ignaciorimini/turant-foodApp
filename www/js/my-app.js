@@ -41,7 +41,6 @@ $$(document).on("page:init", function (e) {
   $$("#colapso").addClass("inicial");
   $$("#textonavbar").removeClass("toytexto");
   $$("#textonavbar").removeClass("notoytexto");
-
   segurocolapso = 0;
 });
 
@@ -408,8 +407,21 @@ var comidaimagen = [];
 var comidaprecio = [];
 var nombrerestaurante = [];
 var imagenrestaurante = [];
+var nombreNombre;
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    db.collection("Usuarios").doc(user.email).get().then((doc) => {
+      nombreNombre = doc.data().nombre;
+      nombreCliente = user.email;
+      $$("#logueo").text(nombreCliente);
+    }) 
+  }
+})
 
 $$("#rayitas").on("click", fnCambio);
+
+     
 
 
 function fnLogin() {
@@ -890,3 +902,6 @@ function fnSubirImagenes() {
 
   }
 }
+
+
+
