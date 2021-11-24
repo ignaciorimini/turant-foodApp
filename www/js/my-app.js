@@ -458,7 +458,8 @@ firebase.auth().onAuthStateChanged((user) => {
     db.collection("Usuarios").doc(user.email).get().then((doc) => {
       nombreNombre = doc.data().nombre;
       nombreCliente = user.email;
-      $$("#logueo").text(nombreCliente);
+      $$("#logueo").text("Pestaña locales");
+      $$("#referido").attr("href", "/index-local/");
     })
   }
 })
@@ -802,8 +803,10 @@ function fnLocalRegistro() {
 $$("#log-out").on('click', fnLogOut);
 
 function fnLogOut() {
+
   firebase.auth().signOut().then(() => {
     console.log("Sign-out successful.");
+    $$("#referido").attr("href", "/login/");
     nombreCliente = null;
     $$("#logueo").text("Login");
 
@@ -967,46 +970,43 @@ function fnSubirProductos() {
 
     var storageRef = storage.ref('/localesProductos/' + nombreCliente + "-" + nombreProducto);
 
-    var upload = storageRef.put(imagenProducto);
 
-    upload.on('state_changed', function (snapshot) {
+    storageRef.put(imagenProducto);
 
-    }, function (error) {
-      console.log(error);
-    }, function () {
-      console.log("Archivo subido a Firebase");
-    });
+    setTimeout(function () {
 
 
-    storageRef.getDownloadURL().then(function (url) {
-      // `url` is the download URL for 'images/stars.jpg'
 
-      console.log("URL" + url);
+      storageRef.getDownloadURL().then(function (url) {
+        // `url` is the download URL for 'images/stars.jpg'
 
-      db.collection("Locales").where("emailDelUser", "==", nombreCliente)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data().nombre);
+        console.log("URL" + url);
 
-            db.collection("Locales").doc(doc.id).collection("Comidas").doc(nombreCliente + "-" + nombreProducto)
-              .set({
-                nombre: nombreProducto,
-                descripcion: descripcionProducto,
-                precio: precioProducto,
-                categoria: categoriaProducto,
-                imagen: url
-              })
+        db.collection("Locales").where("emailDelUser", "==", nombreCliente)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              console.log(doc.id, " => ", doc.data().nombre);
 
-          });
-        })
-      console.log(doc.data());
+              db.collection("Locales").doc(doc.id).collection("Comidas").doc(nombreCliente + "-" + nombreProducto)
+                .set({
+                  nombre: nombreProducto,
+                  descripcion: descripcionProducto,
+                  precio: precioProducto,
+                  categoria: categoriaProducto,
+                  imagen: url
+                })
+
+            });
+          })
+        console.log(doc.data());
 
 
-    }).catch(function (error) {
-      // Handle any errors
-    });
+      }).catch(function (error) {
+        // Handle any errors
+      });
+    }, 2000);
 
     mainView.router.refreshPage();
 
