@@ -68,6 +68,8 @@ $$(document).on('page:init', '.page[data-name="localesmenu"]', function (e) {
     comidaprecio.pop();
   }
   console.log(e);
+
+  // $$('.topping').css('left', '100px');
 })
 
 $$(document).on('page:init', '.page[data-name="login"]', function (e) {
@@ -188,7 +190,7 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
 $$(document).on('page:init', '.page[data-name="registrolocal"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  
+
 
   if (nombreCliente == undefined) {
     $$("#desaparezco").addClass("inicial");
@@ -294,6 +296,7 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
     imagenrestaurante.pop();
   }
 
+  $$("#submitLogo").on('click', fnSubirImagenes);
 
   db.collection("Locales").where("emailDelUser", "==", nombreCliente)
     .get()
@@ -332,7 +335,6 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
     });
 
 
-
 });
 
 $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
@@ -350,6 +352,7 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
         console.log(doc.id, " => ", doc.data());
 
         locales.push(doc.data().nombre);
+        localesLogos.push(doc.data().imagen);
         locales.sort();
 
       });
@@ -357,10 +360,14 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
     .then(() => {
       var i = 0;
       var a = "";
+      
       for (i = 0; i < locales.length; i++) {
-       
-        a += `<a onclick="fnLocales(`+i+`)" href="/localesmenu/" data-view=".page-content" id="`+ locales[i] + `"><div class="campo-locales cards-locales">
-              <img src="img/logo-mcdonalds.png">
+
+        a += `<a onclick="fnLocales(` + i + `)" href="/localesmenu/" data-view=".page-content" id="` + locales[i] + `">
+        <div class="campo-locales cards-locales">
+           <div class="imagendelcampo">
+              <img src="` + localesLogos[i] + `" id="logo-local">
+              </div>
               <div class="texto-locales">
                   <h4 id="localNombre" class="cards-local-nombre">`+ locales[i] + `</h4>
                   <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
@@ -369,6 +376,7 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
           </div>
           </a>
           `;
+          console.log(localesLogos[i]);
       }
 
       $$(".block").html(a);
@@ -379,17 +387,17 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
-
-
 });
 
 //VARIABLES GLOBALES
+var storage = firebase.storage();
 var nombreCliente;
 var db = firebase.firestore();
 var cUsuarios = db.collection("Usuarios");
 var seguroInicio = 0;
 var fallo = 3;
 var locales = [];
+var localesLogos = [];
 var guardador;
 var redirigir = 1;
 var segurocolapso = 0;
@@ -689,6 +697,7 @@ function fnLocalRegistro() {
               ubicacion: ubicacion,
               sucursal: sucursal,
               observacion: observacion,
+              imagen: null
             })
 
             .then(() => {
@@ -765,60 +774,119 @@ function fnLocales(identificador){
   console.log(locales[identificador]);
   db.collection("Locales").where("nombre", "==", locales[identificador]).get()
     .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            ubi = doc.data().ubicacion;
-            db.collection("Locales").doc(doc.id).collection("Comidas")
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                  // doc.data() is never undefined for query doc snapshots
-                  console.log(doc.id, " => ", doc.data());
-                  comidanombre.push(doc.data().nombre);
-                  comidadescripcion.push(doc.data().descripcion);
-                  comidaimagen.push(doc.data().imagen);
-                  comidaprecio.push(doc.data().precio);
-                  
-              });
-              
-        }) 
-        .then(() => {
-          var ab = "";
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        ubi = doc.data().ubicacion;
 
-          $$("#textotopping").text(ubi);
-          for (i = 0; i < comidanombre.length; i++) {
-           
-            ab += `<div class="contenedorcomidas">
+
+        db.collection("Locales").doc(doc.id).collection("Comidas")
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+
+
+              console.log(doc.id, " => ", doc.data());
+              comidanombre.push(doc.data().nombre);
+              comidadescripcion.push(doc.data().descripcion);
+              comidaimagen.push(doc.data().imagen);
+              comidaprecio.push(doc.data().precio);
+
+
+            });
+
+          })
+          .then(() => {
+            var ab = "";
+
+            $$("#textotopping").text(ubi);
+            for (i = 0; i < comidanombre.length; i++) {
+
+              ab += `<div class="contenedorcomidas">
                   <div class="foto">
-                  <img class="imagencomida" src="`+comidaimagen[i]+`">
+                  <img class="imagencomida" src="`+ comidaimagen[i] + `">
                   </div>
                   <div class="texto-locales">
                       <h1 id="localNombre" class="cards-local-nombre">`+ comidanombre[i] + `</h1>
-                      <p id="comidadescripcion">`+comidadescripcion[i]+`</p>
-                      <p id="comidaprecio"><b>`+comidaprecio[i]+`$</b></p>
+                      <p id="comidadescripcion">`+ comidadescripcion[i] + `</p>
+                      <p id="comidaprecio"><b>`+ comidaprecio[i] + `$</b></p>
                   </div>
               </div>
               </a>
               `;
-          }
-          setTimeout(function () {
-            $$("#todo").html(ab)
-        
-          }, 500);
+            }
+            setTimeout(function () {
+              $$("#todo").html(ab)
+
+            }, 500);
+          })
+
+          .catch((error) => {
+            console.log("Error getting documents: ", error);
+          });
+
+      })
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+
+}
+
+function fnSubirImagenes() {
+
+  var logo = document.querySelector('#logo').files[0];
+
+  console.log(logo);
+
+  if (!logo) {
+
+  } else {
+    // var archivoName = nombreCliente + logo.name;
+    // archivoName.toString();
+
+    var storageRef = storage.ref('/localesLogos/' + nombreCliente);
+
+    var upload = storageRef.put(logo);
+
+    upload.on('state_changed', function (snapshot) {
+
+    }, function (error) {
+      console.log(error);
+    }, function () {
+      console.log("Archivo subido a Firebase");
+    });
+
+
+    storageRef.getDownloadURL().then(function (url) {
+      // `url` is the download URL for 'images/stars.jpg'
+
+      console.log("URL" + url);
+
+      db.collection("Locales").where("emailDelUser", "==", nombreCliente)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            db.collection("Locales").doc(doc.id).update({
+              imagen: url
+            });
+
+          });
         })
-        
         .catch((error) => {
           console.log("Error getting documents: ", error);
-      });
-        
-    })
-  })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
+        });
+
+      console.log(doc.data());
+
+
+    }).catch(function (error) {
+      // Handle any errors
     });
 
 
 
-      
   }
+}

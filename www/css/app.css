@@ -63,12 +63,28 @@
 .campo-locales{
   display: flex;
   background: white;
+  max-height: 50px;
+  padding: 5px;
 }
 
 .campo-locales img{
-  margin: 5px;
+ 
   max-width: 50px;
   max-height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  
+}
+
+.campo-locales h4 {
+  margin: 0;
+  margin-left: 5px;
+}
+
+.imagendelcampo {
+  max-width: 50px;
+  max-height: 50px;
+  background: grey;
 }
 
 .local-nombre{
@@ -213,7 +229,7 @@
   animation-fill-mode: forwards;
 }
 
-a {
+.navbar a {
   color: white !important;
 }
 
