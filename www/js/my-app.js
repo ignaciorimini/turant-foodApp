@@ -461,13 +461,17 @@ function fnLogin() {
       setTimeout(function () {
         redirigir = 1;
         if (redirigir == 1) {
+          let targetURL = "/index-local/";
+              let newURL = document.createElement("a");
+              newURL.href = targetURL;
+              document.body.appendChild(newURL);
+              newURL.click();
           db.collection("Locales").where("emailDelUser", "==", nombreCliente)
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                mainView.router.navigate('/index-local/');
               });
             })
             .catch((error) => {
