@@ -316,6 +316,9 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
   for (i = locales.length; i > 0; i--) {
     locales.pop();
   }
+  for (i = localesLogos.length; i > 0; i--) {
+    localesLogos.pop();
+  }
 
 
   db.collection("Locales").get()
@@ -333,7 +336,7 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
     .then(() => {
       var i = 0;
       var a = "";
-      
+
       for (i = 0; i < locales.length; i++) {
 
         a += `<a onclick="fnLocales(` + i + `)" href="/localesmenu/" data-view=".page-content" id="` + locales[i] + `"><div class="campo-locales cards-locales">
@@ -346,7 +349,7 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
           </div>
           </a>
           `;
-          console.log(localesLogos[i]);
+        console.log(localesLogos[i]);
       }
 
       $$(".block").html(a);
@@ -829,9 +832,8 @@ function fnSubirImagenes() {
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             db.collection("Locales").doc(doc.id).update({
-              imagen: url
+              imagen: url + ".jpg"
             });
-
           });
         })
         .catch((error) => {
