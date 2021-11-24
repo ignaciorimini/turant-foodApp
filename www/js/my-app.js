@@ -54,7 +54,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-  $$("#log-out").on('click', fnLogOut);
+
 
 })
 
@@ -754,6 +754,8 @@ function fnLocalRegistro() {
   }
 
 }
+
+$$("#log-out").on('click', fnLogOut);
 
 function fnLogOut() {
   firebase.auth().signOut().then(() => {
