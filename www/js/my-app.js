@@ -42,6 +42,7 @@ $$(document).on("page:init", function (e) {
   $$("#textonavbar").removeClass("toytexto");
   $$("#textonavbar").removeClass("notoytexto");
   segurocolapso = 0;
+  $$("#log-out").on('click', fnLogOut);
 });
 
 // Option 2. Using live 'page:init' event handlers for each page
