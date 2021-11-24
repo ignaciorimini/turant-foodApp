@@ -59,19 +59,6 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 
 })
 
-$$(document).on('page:init', '.page[data-name="localesmenu"]', function (e) {
-  // Do something here when page with data-name="about" attribute loaded and initialized
-  for (i = locales.length; i > 0; i--) {
-    comidanombre.pop();
-    comidadescripcion.pop();
-    comidaimagen.pop();
-    comidaprecio.pop();
-  }
-  console.log(e);
-
-  // $$('.topping').css('left', '100px');
-})
-
 $$(document).on('page:init', '.page[data-name="login"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
@@ -298,6 +285,8 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
 
   $$("#submitLogo").on('click', fnSubirImagenes);
 
+  $$("#submitProducto").on('click', fnSubirProductos);
+
   db.collection("Locales").where("emailDelUser", "==", nombreCliente)
     .get()
     .then((querySnapshot) => {
@@ -306,16 +295,16 @@ $$(document).on('page:init', '.page[data-name="index-local"]', function (e) {
         console.log(doc.id, " => ", doc.data().nombre);
         nombrerestaurante.push(doc.data().nombre);
         imagenrestaurante.push(doc.data().imagen);
-        
+
       });
     })
 
     .then(() => {
       var c = "";
       for (i = 0; i < nombrerestaurante.length; i++) {
-       
+
         c += `<div class="campo-locales cards-locales">
-              <img src="`+imagenrestaurante[i]+`">
+              <img src="`+ imagenrestaurante[i] + `">
               <div class="texto-locales">
                   <h4 id="localNombre" class="cards-local-nombre">`+ nombrerestaurante[i] + `</h4>
                   <p id="local-puntuacion"> <i class="f7-icons">star_fill</i> 5.0
@@ -356,7 +345,6 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
 
         locales.push(doc.data().nombre);
         localesLogos.push(doc.data().imagen);
-        locales.sort();
 
       });
     })
@@ -392,6 +380,58 @@ $$(document).on('page:init', '.page[data-name="locales"]', function (e) {
     });
 });
 
+
+$$(document).on('page:init', '.page[data-name="localesmenu"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  for (i = locales.length; i > 0; i--) {
+    comidanombre.pop();
+    comidadescripcion.pop();
+    comidaimagen.pop();
+    comidaprecio.pop();
+  }
+  console.log(e);
+
+  // db.collection("Locales").doc(doc.id).collection("Comidas").get()
+  //   .then((querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       // doc.data() is never undefined for query doc snapshots
+  //       console.log(doc.id, " => ", doc.data());
+
+
+  //     });
+  //   })
+  //   .then(() => {
+  //     var i = 0;
+  //     var ab = "";
+
+  //     for (i = 0; i < comidanombre.length; i++) {
+
+  //       ab += `<div class="contenedorcomidas">
+  //                 <div class="foto">
+  //                 <img class="imagencomida" src="`+ comidaimagen[i] + `">
+  //                 </div>
+  //                 <div class="texto-locales">
+  //                     <h1 id="localNombre" class="cards-local-nombre">`+ comidanombre[i] + `</h1>
+  //                     <p id="comidadescripcion">`+ comidadescripcion[i] + `</p>
+  //                     <p id="comidaprecio"><b>`+ comidaprecio[i] + `$</b></p>
+  //                 </div>
+  //             </div>
+  //             </a>
+  //             `;
+  //     }
+  //     console.log(localesLogos[i]);
+  //     $$(".block").html(ab);
+  //     a = null;
+  //     i = 0;
+  //   })
+  // .catch((error) => {
+  //   console.log("Error getting documents: ", error);
+  // });
+
+
+  // $$('.topping').css('left', '100px');
+})
+
 //VARIABLES GLOBALES
 var storage = firebase.storage();
 var nombreCliente;
@@ -419,13 +459,13 @@ firebase.auth().onAuthStateChanged((user) => {
       nombreNombre = doc.data().nombre;
       nombreCliente = user.email;
       $$("#logueo").text(nombreCliente);
-    }) 
+    })
   }
 })
 
 $$("#rayitas").on("click", fnCambio);
 
-     
+
 
 
 function fnLogin() {
@@ -466,10 +506,10 @@ function fnLogin() {
         redirigir = 1;
         if (redirigir == 1) {
           let targetURL = "/index-local/";
-              let newURL = document.createElement("a");
-              newURL.href = targetURL;
-              document.body.appendChild(newURL);
-              newURL.click();
+          let newURL = document.createElement("a");
+          newURL.href = targetURL;
+          document.body.appendChild(newURL);
+          newURL.click();
           db.collection("Locales").where("emailDelUser", "==", nombreCliente)
             .get()
             .then((querySnapshot) => {
@@ -790,7 +830,7 @@ function fnCambio() {
   }
 }
 
-function fnLocales(identificador){
+function fnLocales(identificador) {
   var ubi;
   console.log("Entre");
   console.log(locales[identificador]);
@@ -907,10 +947,71 @@ function fnSubirImagenes() {
       // Handle any errors
     });
 
-
+    mainView.router.refreshPage();
 
   }
 }
 
+function fnSubirProductos() {
+  var nombreProducto = $$("#nombreProducto").val();
+  var descripcionProducto = $$("#descripcionProducto").val();
+  var precioProducto = $$("#precioProducto").val();
+  var categoriaProducto = $$("#categoriaProducto").val();
+  var imagenProducto = document.querySelector('#imagenProducto').files[0];
+
+  console.log(imagenProducto);
+
+  if (!imagenProducto) {
+
+  } else {
+
+    var storageRef = storage.ref('/localesProductos/' + nombreCliente + "-" + nombreProducto);
+
+    var upload = storageRef.put(imagenProducto);
+
+    upload.on('state_changed', function (snapshot) {
+
+    }, function (error) {
+      console.log(error);
+    }, function () {
+      console.log("Archivo subido a Firebase");
+    });
+
+
+    storageRef.getDownloadURL().then(function (url) {
+      // `url` is the download URL for 'images/stars.jpg'
+
+      console.log("URL" + url);
+
+      db.collection("Locales").where("emailDelUser", "==", nombreCliente)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data().nombre);
+
+            db.collection("Locales").doc(doc.id).collection("Comidas").doc(nombreCliente + "-" + nombreProducto)
+              .set({
+                nombre: nombreProducto,
+                descripcion: descripcionProducto,
+                precio: precioProducto,
+                categoria: categoriaProducto,
+                imagen: url
+              })
+
+          });
+        })
+      console.log(doc.data());
+
+
+    }).catch(function (error) {
+      // Handle any errors
+    });
+
+    mainView.router.refreshPage();
+
+  }
+
+}
 
 
